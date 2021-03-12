@@ -9,7 +9,7 @@ const routes = [
     path: '/red',
     name: 'red-light',
     component: Main,
-    props: { activeLight: 'red', startTime: 5 },
+    props: { activeLight: 'red', startTime: 10 },
   },
   {
     path: '/yellow',
@@ -21,7 +21,7 @@ const routes = [
     path: '/green',
     name: 'green-light',
     component: Main,
-    props: { activeLight: 'green', startTime: 7 },
+    props: { activeLight: 'green', startTime: 15 },
   },
 
 ];
