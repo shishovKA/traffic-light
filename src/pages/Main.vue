@@ -4,27 +4,35 @@
   <div class='page'>
     <div class='light__container'>
       <!-- red -->
-      <div
-        class='light red'
-        v-bind:class="{'turned-off': (this.activeLight !== 'red')}">
-      </div>
+      <Light
+        :color="'#ff1100'" 
+        :isActive="(this.activeLight === 'red')"
+        :currentTime="this.currentTime"
+      />
       <!-- yellow -->
-      <div
-        class='light yellow'
-        v-bind:class="{'turned-off': (this.activeLight !== 'yellow')}">
-      </div>
+      <Light
+        :color="'#ffd900'" 
+        :isActive="(this.activeLight === 'yellow')"
+        :currentTime="this.currentTime"
+      />
       <!-- green -->
-      <div
-        class='light green'
-        v-bind:class="{'turned-off': (this.activeLight !== 'green')}">
-      </div>
+      <Light
+        :color="'#09ff00'" 
+        :isActive="(this.activeLight === 'green')"
+        :currentTime="this.currentTime"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import Light from '../components/Light';
+
 export default {
   name: 'Main',
+  components: {
+    Light
+  },
   props: {
     activeLight: String,
     startTime: Number,
@@ -38,6 +46,7 @@ export default {
   },
 
   mounted() {
+    this.$store.commit('updateCurrentTime', this.currentTime);
     this.startTimer();
   },
   destroyed() {
@@ -57,9 +66,10 @@ export default {
 
   watch: {
     currentTime(time) {
-      console.log(this.activeLight, ' = ', time);
+      this.$store.commit('updateCurrentTime', time);
       if (time === 0) {
         this.stopTimer();
+        this.$store.commit('changeLight');
       }
     },
   },
@@ -92,34 +102,6 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-}
-
-.light {
-  width: 25vh;
-  border-radius: 50%;
-  background-color: #fff;
-}
-
-.light:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.red {
-  background-color: red;
-}
-
-.yellow {
-  background-color: rgb(255, 238, 0);
-}
-
-.green {
-  background-color: rgb(14, 223, 14);
-}
-
-.turned-off {
-  opacity: 0.25;
 }
 
 </style>

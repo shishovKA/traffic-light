@@ -1,27 +1,25 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Main from '../pages/Main.vue';
+import store from '../store'
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/red',
-    name: 'red-light',
+    name: 'red',
     component: Main,
-    props: { activeLight: 'red', startTime: 10 },
   },
   {
     path: '/yellow',
-    name: 'yellow-light',
+    name: 'yellow',
     component: Main,
-    props: { activeLight: 'yellow', startTime: 3 },
   },
   {
     path: '/green',
-    name: 'green-light',
+    name: 'green',
     component: Main,
-    props: { activeLight: 'green', startTime: 15 },
   },
 
 ];
@@ -31,5 +29,15 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  if (!to.name) next({ name: 'red' })
+  else next();
+})
+
+router.afterEach((to, from) => {
+  if (!from.name) store.commit('setStartPosition', to.name);
+})
+
 
 export default router;

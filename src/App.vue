@@ -1,8 +1,24 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view 
+      :key="this.$store.getters.currentName"
+      :startTime="this.$store.getters.startTime"
+      :activeLight="this.$store.getters.currentName"
+    />
+    <SavePanel/>
   </div>
 </template>
+
+<script>
+import SavePanel from './components/SavePanel'
+
+export default {
+  name: 'App',
+  components: {
+    SavePanel
+  },
+}
+</script>
 
 <style>
 #app {
