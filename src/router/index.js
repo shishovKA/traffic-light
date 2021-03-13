@@ -10,16 +10,25 @@ const routes = [
     path: '/red',
     name: 'red',
     component: Main,
+    meta: {
+      route: '/red',
+    }
   },
   {
     path: '/yellow',
     name: 'yellow',
     component: Main,
+    meta: {
+      route: '/yellow',
+    }
   },
   {
     path: '/green',
     name: 'green',
     component: Main,
+    meta: {
+      route: '/green',
+    }
   },
 
 ];
